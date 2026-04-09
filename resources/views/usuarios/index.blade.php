@@ -71,6 +71,15 @@
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </form>
+                                        @if(session('rol') === 'administrador')
+                                    <form action="{{ route('usuarios.enviarAviso', $usuario->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        <input type="hidden" name="mensaje_correo" value="Te informamos que el sistema del Consultorio Dental Ramírez tiene nuevas actualizaciones y avisos importantes.">
+                                        <button type="submit" class="btn btn-sm btn-info" onclick="return confirm('¿Enviar aviso al usuario?')">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </button>
+                                    </form>
+                                @endif
                                 </div>
                             </td>
                         </tr>

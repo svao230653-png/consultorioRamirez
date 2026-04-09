@@ -91,18 +91,20 @@
                                     </a>
 
                                     @if(session('rol') !== 'doctor')
-                                        <a href="{{ route('citas.edit', $cita->id) }}" class="btn btn-sm btn-warning">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
+                                    <a href="{{ route('citas.edit', $cita->id) }}" class="btn btn-sm btn-warning">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                @endif
 
-                                        <form action="{{ route('citas.destroy', $cita->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta cita?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    @endif
+                                @if(session('rol') === 'administrador')
+                                    <form action="{{ route('citas.destroy', $cita->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta cita?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                @endif      
                                 </div>
                             </td>
                         </tr>

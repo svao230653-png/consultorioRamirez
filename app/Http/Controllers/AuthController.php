@@ -52,7 +52,7 @@ class AuthController extends Controller
         ]);
 
         $usuario = User::where('email', $request->email)->first();
-
+    
         if (!$usuario || !Hash::check($request->password, $usuario->password)) {
             return back()->with('error', 'Correo o contraseña incorrectos.');
         }

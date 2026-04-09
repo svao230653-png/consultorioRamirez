@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AvisoSistemaMail;
 
 class UserController extends Controller
 {
@@ -94,6 +96,22 @@ class UserController extends Controller
 
         $usuario->delete();
 
-        return redirect()->route('usuarios.index')->with('error', 'Usuario eliminado correctamente.');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');
+    }
+
+    public function enviarAviso(Request $request, string $id)
+    {
+        if (session('rol') !== 'administrador') {
+            return redirect()->route('usuarios.index')->with('error', 'No tienes permiso para realizar esta acción.');
+        }
+
+        $usuario = User::findOrFail($id);
+
+        $mensajeCorreo = $request->mensaje_correo
+            ?? 'Te informamos que hay novedades importantes en el sistema del Consultorio Dental Ramírez.';
+
+        Mail::to($usuario->email)->send(new AvisoSistemaMail($usuario, $mensajeCorreo));
+
+        return redirect()->route('usuarios.index')->with('success', 'Aviso enviado correctamente al usuario.');
     }
 }

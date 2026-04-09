@@ -52,11 +52,11 @@ Route::middleware(['sesion'])->group(function () {
    
     Route::resource('pacientes', PacienteController::class);
     Route::resource('citas', CitaController::class);
-
     
    Route::middleware(['admin'])->group(function () {
 
     Route::resource('usuarios', UserController::class);
+    Route::post('/usuarios/{id}/enviar-aviso',[UserController::class, 'enviarAviso'])->name('usuarios.enviarAviso');
 
     Route::get('/admin/backup', [BackupController::class, 'index']);
     Route::get('/admin/backup/create', [BackupController::class, 'backup']);

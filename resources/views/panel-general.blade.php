@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultorio Dentista Ramírez</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
     <style>
         * {
             margin: 0;
@@ -637,20 +637,36 @@
             </div>
         </div>
     </footer>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <div id="map" style="height: 400px; width: 100%; border-radius: 10px;"></div>
+    <script>
+        function initMap() {
+            const ubicacion = { lat: {{ $latitud }}, lng: {{ $longitud }} };
 
-<script>
-    var map = L.map('map').setView([{{ $latitud }}, {{ $longitud }}], 15);
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: ubicacion,
+            });
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+            const marker = new google.maps.Marker({
+                position: ubicacion,
+                map: map,
+                title: "Consultorio Dentista Ramírez"
+            });
 
-    L.marker([{{ $latitud }}, {{ $longitud }}])
-        .addTo(map)
-        .bindPopup('Consultorio Dentista Ramírez')
-        .openPopup();
-</script>
+            const infoWindow = new google.maps.InfoWindow({
+                content: "<strong>Consultorio Dentista Ramírez</strong>"
+            });
+
+            marker.addListener("click", () => {
+                infoWindow.open(map, marker);
+            });
+
+            infoWindow.open(map, marker);
+        }
+    </script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap">
+    </script>
 </body>
 </html>
  

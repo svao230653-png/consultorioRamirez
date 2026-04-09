@@ -102,8 +102,6 @@ class CitaController extends Controller
         }
 
         $request->validate([
-            'paciente_id' => 'required|exists:pacientes,id',
-            'doctor_id' => 'required|exists:usuarios,id',
             'fecha' => 'required|date',
             'hora' => 'required',
             'motivo' => 'required|string|max:255',
@@ -111,8 +109,6 @@ class CitaController extends Controller
         ]);
 
         $cita->update([
-            'paciente_id' => $request->paciente_id,
-            'doctor_id' => $request->doctor_id,
             'fecha' => $request->fecha,
             'hora' => $request->hora,
             'motivo' => $request->motivo,
@@ -126,12 +122,12 @@ class CitaController extends Controller
     {
         $cita = Cita::findOrFail($id);
 
-        if (session('rol') === 'doctor') {
+        if (session('rol') !== 'administrador') {
             return redirect()->route('citas.index')->with('error', 'No tienes permiso para eliminar citas.');
         }
 
         $cita->delete();
 
-        return redirect()->route('citas.index')->with('error', 'Cita eliminada correctamente.');
+        return redirect()->route('citas.index')->with('success', 'Cita eliminada correctamente.');
     }
 }

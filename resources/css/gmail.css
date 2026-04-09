@@ -1,0 +1,66 @@
+.email-body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+.email-wrapper {
+    padding: 20px;
+}
+
+.email-container {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.email-header {
+    background: #0f766e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.email-header h1 {
+    margin: 0;
+}
+
+.email-content {
+    padding: 30px;
+    color: #333;
+}
+
+.email-content h2 {
+    color: #0f766e;
+    margin-top: 0;
+}
+
+.email-button-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.email-button {
+    background: #0f766e;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.email-note {
+    font-size: 12px;
+    color: #777;
+}
+
+.email-footer {
+    background: #f1f1f1;
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+    color: #666;
+}
